@@ -4,10 +4,9 @@ using Gurukul.Services;
 
 namespace Gurukul.MVVM.ViewModels;
 
-public class HomeViewModel : Core.ViewModel
+public class AddClassViewModel : ViewModel
 {
     private INavigationService _navigation;
-
     public INavigationService Navigation 
     { 
         get => _navigation; 
@@ -20,7 +19,7 @@ public class HomeViewModel : Core.ViewModel
 
     public RelayCommand NavigateToSettingView { get; set; }
 
-    public HomeViewModel(INavigationService navigation)
+    public AddClassViewModel(INavigationService navigation)
     {
         Navigation = navigation;
         NavigateToSettingView = new RelayCommand(execute:obj => { Navigation.NavigateTo<SettingViewModel>(); }, canExecute:obj => true);

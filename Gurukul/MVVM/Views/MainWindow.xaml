@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Gurukul"
         xmlns:components="clr-namespace:Gurukul.Components"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="GPS" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>

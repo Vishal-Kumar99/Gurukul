@@ -111,7 +111,7 @@ public class SidebarViewModel : Core.ViewModel
             //CreateItem("Dashboard", "\uE80F"),
 
             CreateItem("Students", "\uE77B",
-                ("Admission Form", typeof(HomeViewModel)), ("List Students", typeof(HomeViewModel)), ("Student Categories", typeof(HomeViewModel)), ("Student House", typeof(HomeViewModel)), ("Student Activity", typeof(HomeViewModel)), ("Parents", typeof(HomeViewModel))),
+                ("Admission Form", typeof(AdmissionFormViewModel)), ("List Students", typeof(HomeViewModel)), ("Student Categories", typeof(HomeViewModel)), ("Student House", typeof(HomeViewModel)), ("Student Activity", typeof(HomeViewModel)), ("Parents", typeof(HomeViewModel))),
 
             CreateItem("Teachers", "\uE716",
                 ("Add Teacher", typeof(HomeViewModel)), ("List Teachers", typeof(HomeViewModel)), ("Teacher Salary", typeof(HomeViewModel))),

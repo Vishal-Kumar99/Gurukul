@@ -5,8 +5,290 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gurukul.MVVM.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             Background="LightGray"
+             d:DesignHeight="1000" d:DesignWidth="1000">
+    <ScrollViewer>
+        <Border Margin="20" Padding="20" Background="White" CornerRadius="10">
+            <StackPanel>
+                <Grid Margin="0 0 0 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Form No: "
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Foreground="#2C3E50"/>
+
+                    <TextBlock Text="11"
+                               Grid.Column="1"
+                               Margin="10 0"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Foreground="#2C3E50"/>
+
+                    <TextBlock Text="Admission No: "
+                               Grid.Row="1"
+                               FontWeight="SemiBold"
+                               Foreground="#2C3E50"
+                               VerticalAlignment="Center"/>
+
+                    <TextBlock Text="120"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="10 0"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Foreground="#2C3E50"/>
+
+                    <TextBlock Text="Student Admission Form"
+                               Grid.Column="2"
+                               Grid.RowSpan="2"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="#2C3E50"/>
+
+                    <TextBlock Text="Date of Issue : 10-01-2026"
+                               Grid.Column="3"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Foreground="#2C3E50"/>
+                </Grid>
+
+                <GroupBox Header="Student Information" Margin="0 0 0 15">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="First Name:" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Last Name:" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Class:" Grid.Row="1" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Academic Year:" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="1" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Date of Birth:" Grid.Row="2" VerticalAlignment="Center"/>
+                        <DatePicker Grid.Row="2" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Aadhar No:" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="2" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Place of Birth:" Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="State:" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="3" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Country:" Grid.Row="4" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Religion:" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="4" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Gender:" Grid.Row="5" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Caste:" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="5" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Residential Address:" Grid.Row="6" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Margin="5" VerticalContentAlignment="Center"/>
+                        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Pincode:" Grid.Row="7" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="7" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Mother Tongue:" Grid.Row="8" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="8" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Blood Group:" Grid.Row="8" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="8" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Identification Marks:" Grid.Row="9" VerticalAlignment="Center"/>
+                        <DockPanel LastChildFill="True" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4" Margin="5">
+                            <TextBlock Text="(1) " VerticalAlignment="Center"/>
+                            <TextBox VerticalContentAlignment="Center"/>
+                        </DockPanel>
+
+                        <DockPanel LastChildFill="True" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" Margin="5">
+                            <TextBlock Text="(2) " VerticalAlignment="Center"/>
+                            <TextBox VerticalContentAlignment="Center"/>
+                        </DockPanel>
+
+                        <StackPanel Grid.Row="11" Grid.ColumnSpan="5">
+                            <TextBlock Text="Previous academic record"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Foreground="#2C3E50"/>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="125"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35"/>
+                                    <RowDefinition Height="35"/>
+                                    <RowDefinition Height="35"/>
+                                </Grid.RowDefinitions>
+
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                    <TextBlock Text="Name of previous school and location" VerticalAlignment="Bottom" Margin="10 0 0 5"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="1" BorderThickness="0 1 0 1">
+                                    <TextBlock Text="Class" VerticalAlignment="Bottom" Margin="10 0 20 5"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="2" BorderThickness="1 1 0 1">
+                                    <TextBlock Text="Year of Study" VerticalAlignment="Bottom" Margin="10 0 20 5"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="3" BorderThickness="1">
+                                    <TextBlock Text="Percentage Grade" VerticalAlignment="Bottom" Margin="10 0 20 5"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" BorderThickness="1 0 1 1" Grid.Row="1">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" Padding="5"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="1" Grid.Row="1" BorderThickness="0 0 0 1">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="2" Grid.Row="1" BorderThickness="1 0 0 1">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="3" Grid.Row="1" BorderThickness="1 0 1 1">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" BorderThickness="1 0 1 1" Grid.Row="2">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" Padding="5"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="1" Grid.Row="2" BorderThickness="0 0 0 1">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="2" Grid.Row="2" BorderThickness="1 0 0 1">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </Border>
+
+                                <Border BorderBrush="Black" Grid.Column="3" Grid.Row="2" BorderThickness="1 0 1 1">
+                                    <TextBox BorderThickness="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+
+                        <TextBlock Text="Please mention, in brief, if there is any history of previous illness, allergy or physical psychological illness" Grid.Row="12" Grid.ColumnSpan="5" VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Row="13" Grid.ColumnSpan="5" Margin="0 5 5 5" VerticalContentAlignment="Center"/>
+
+
+                        <StackPanel Grid.Column="5" Grid.RowSpan="14">
+                            <Image HorizontalAlignment="Left" Width="200" Height="200" Margin="20 10" Stretch="UniformToFill" Source="https://placehold.net/avatar-2.png"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Parent Information" Margin="0 0 0 15">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Father Name:" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Mother Name:" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Father Occupation:" Grid.Row="1" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Mother Occupation" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Father Education:" Grid.Row="2" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Margin="5" Grid.Row="2" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Mother Education:" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="4" Margin="5" Grid.Row="2" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Contact No:" Grid.Row="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"/>
+
+                        <TextBlock Text="Email Address:" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="3" Grid.Column="4" Margin="5" VerticalContentAlignment="Center"/>
+                    </Grid>
+                </GroupBox>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Save"
+                            Width="100"
+                            Margin="5"
+                            Background="#3498DB"
+                            Foreground="White"/>
+
+                    <Button Content="Clear"
+                            Width="100"
+                            Margin="5"
+                            Background="#E74C3C"
+                            Foreground="White"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
 </UserControl>
