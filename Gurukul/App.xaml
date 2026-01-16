@@ -1,0 +1,16 @@
+﻿<Application x:Class="Gurukul.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Gurukul"
+             xmlns:viewModel="clr-namespace:Gurukul.MVVM.ViewModels"
+             xmlns:view="clr-namespace:Gurukul.MVVM.Views">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type TypeName=viewModel:HomeViewModel}">
+            <view:HomeView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModel:SettingViewModel}">
+            <view:SettingView />
+        </DataTemplate>
+    </Application.Resources>
+</Application>
