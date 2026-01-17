@@ -117,7 +117,7 @@ public class SidebarViewModel : Core.ViewModel
                 ("Add Teacher", typeof(HomeViewModel)), ("List Teachers", typeof(HomeViewModel)), ("Teacher Salary", typeof(HomeViewModel))),
 
             CreateItem("Class", "\uE7BE",
-                ("Add Class", typeof(HomeViewModel)), ("Class Routine", typeof(HomeViewModel)), ("Class Information", typeof(HomeViewModel))),
+                ("Add Class", typeof(AddClassViewModel)), ("Class Routine", typeof(HomeViewModel)), ("Class Information", typeof(HomeViewModel))),
 
             CreateItem("Attendance", "\uE73E",
                 ("Student Attendance", typeof(HomeViewModel)), ("Teacher Attendance", typeof(HomeViewModel))),

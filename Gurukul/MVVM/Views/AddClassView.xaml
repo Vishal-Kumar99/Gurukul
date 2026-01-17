@@ -7,22 +7,242 @@
              mc:Ignorable="d" 
              Background="LightGray"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="GroupBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#454545"/>
+            <!-- Green -->
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <!-- Disabled -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#FFCFCFCF"/>
+                                <Setter Property="Foreground" Value="#FF8A8A8A"/>
+                                <Setter Property="Cursor" Value="No"/>
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+
+                            <!-- Pressed (subtle) -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="DangerButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="IndianRed"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <!-- Disabled -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#FFCFCFCF"/>
+                                <Setter Property="Foreground" Value="#FF8A8A8A"/>
+                                <Setter Property="Cursor" Value="No"/>
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+
+                            <!-- Pressed (optional subtle effect) -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+
+                            <!-- Focused (no glow, no border) -->
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderThickness" Value="0"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DangerBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="IndianRed"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Opacity" Value="1"/>
+
+            <Style.Triggers>
+                <!-- Disabled look -->
+                <DataTrigger Binding="{Binding IsEnabled, ElementName=DeleteBtn}" Value="False">
+                    <Setter Property="BorderBrush" Value="#FFB0B0B0"/>
+                    <Setter Property="Opacity" Value="0.6"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DangerTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="IndianRed"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+            <Style.Triggers>
+                <!-- Disabled look -->
+                <DataTrigger Binding="{Binding IsEnabled, ElementName=DeleteBtn}" Value="False">
+                    <Setter Property="Foreground" Value="#FF9E9E9E"/>
+                    <Setter Property="Opacity" Value="0.6"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+    </UserControl.Resources>
+    
     <Border Margin="20" Padding="20" Background="White" CornerRadius="10" >
-        <StackPanel>
-            <TextBlock Text="Add New Class" 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Class Management" 
                        FontSize="24" 
                        FontWeight="Bold" 
-                       Margin="0,0,0,20" 
-                       HorizontalAlignment="Center"/>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Class Name:" Width="100" VerticalAlignment="Center"/>
-                <TextBox Width="200" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Section:" Width="100" VerticalAlignment="Center"/>
-                <TextBox Width="200" />
-            </StackPanel>
-            <Button Content="Add Class" Width="100" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-        </StackPanel>
+                       Margin="0,0,0,20" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                
+                <GroupBox Header="Existing Classes" Margin="0 0 20 0">
+                    <ListView ItemsSource="{Binding SectionList}" 
+                            SelectedItem="{Binding SelectedSection}" 
+                            MinHeight="300">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Class Name" 
+                                            DisplayMemberBinding="{Binding ClassName}" 
+                                            Width="120"/>
+                                <GridViewColumn Header="Section"
+                                            DisplayMemberBinding="{Binding SectionName}" 
+                                            Width="120"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>
+
+                <StackPanel Grid.Column="1">
+                    <GroupBox Header="Add New Class" 
+                              Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                            
+                            <TextBlock Text="Class Name:" 
+                                       Width="90" 
+                                       Margin="0 0 15 0"
+                                       VerticalAlignment="Center"/>
+                            
+                            <ComboBox IsEditable="True" 
+                                      IsTextSearchEnabled="True" 
+                                      Width="150" 
+                                      Text="{Binding NewClassName, UpdateSourceTrigger=PropertyChanged}" 
+                                      ItemsSource="{Binding ClassList}" 
+                                      DisplayMemberPath="ClassName"/>
+                            
+                            <Button Content="Add" 
+                                    Width="80" 
+                                    HorizontalAlignment="Center" 
+                                    Margin="20,0,0,0" 
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Command="{Binding AddClassCommand}"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Add New Section" Margin="0 0 0 20">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                            
+                            <TextBlock Text="Class:" Width="60" VerticalAlignment="Center"/>
+                            
+                            <ComboBox Width="130"
+                                      IsEditable="True"
+                                      IsTextSearchEnabled="True"
+                                      ItemsSource="{Binding ClassList}"
+                                      SelectedItem="{Binding SelectedClass}"
+                                      SelectedValuePath="ClassId"
+                                      DisplayMemberPath="ClassName"/>
+
+                            <TextBlock Text="Section:" Width="70" Margin="15 0 0 0" VerticalAlignment="Center"/>
+
+                            <ComboBox IsEditable="True" 
+                                      IsTextSearchEnabled="True" 
+                                      Width="120" 
+                                      Text="{Binding NewSectionName, UpdateSourceTrigger=PropertyChanged}" 
+                                      ItemsSource="{Binding UniqueSectionList}" />
+                            
+                            <Button Content="Add" 
+                                    Width="80" 
+                                    HorizontalAlignment="Center" 
+                                    Margin="20,0,0,0" 
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Command="{Binding AddSectionCommand}"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                        <Button Content="Delete Selected" 
+                                x:Name="DeleteBtn"
+                                Command="{Binding DeleteSectionCommand}"
+                                Style="{StaticResource DangerButtonStyle}"/>
+
+                        <Border Style="{StaticResource DangerBorderStyle}">
+                            <TextBlock Text="⚠ CAUTION - This will delete all related data"
+                                       Style="{StaticResource DangerTextStyle}" />
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Border>
 </UserControl>

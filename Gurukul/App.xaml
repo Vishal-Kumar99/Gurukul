@@ -16,5 +16,9 @@
         <DataTemplate DataType="{x:Type TypeName=viewModel:AdmissionFormViewModel}">
             <view:AdmissionFormView />
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type TypeName=viewModel:AddClassViewModel}">
+            <view:AddClassView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

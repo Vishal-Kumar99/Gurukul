@@ -119,6 +119,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
     </UserControl.Resources>
+    
     <Border Background="#1E1E1E">
         <Border.Width>
             <Binding Path="IsCollapsed" Converter="{StaticResource BoolToSidebarWidthConverter}"/>

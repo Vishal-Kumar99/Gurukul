@@ -26,6 +26,7 @@ namespace Gurukul
             services.AddSingleton<HomeViewModel>();
             services.AddSingleton<SettingViewModel>();
             services.AddSingleton<AdmissionFormViewModel>();
+            services.AddSingleton<AddClassViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
