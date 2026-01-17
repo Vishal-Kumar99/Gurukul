@@ -12,7 +12,6 @@ namespace Gurukul.MVVM.ViewModels;
 
 public class AddClassViewModel : ViewModel
 {
-    private readonly string _conn = ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
     public ObservableCollection<Class> ClassList { get; set; } = new();
     public ObservableCollection<Section> SectionList { get; set; } = new();
     public ObservableCollection<string> UniqueSectionList { get; private set; } = new();
@@ -88,7 +87,7 @@ public class AddClassViewModel : ViewModel
 
         try
         {
-            using SqlConnection con = new(_conn);
+            using SqlConnection con = new(AppState._conn);
             string query = @"DELETE FROM Section WHERE SectionId = @id";
             using SqlCommand cmd = new(query, con);
 
@@ -122,7 +121,7 @@ public class AddClassViewModel : ViewModel
 
         try
         {
-            using SqlConnection con = new(_conn);
+            using SqlConnection con = new(AppState._conn);
 
             string query = @"INSERT INTO Section (SectionName, ClassId) VALUES (@SectionName, @ClassId); SELECT SCOPE_IDENTITY();";
 
@@ -148,7 +147,7 @@ public class AddClassViewModel : ViewModel
     {
         try
         {
-            using SqlConnection con = new(_conn);
+            using SqlConnection con = new(AppState._conn);
 
             string query = @"SELECT ClassId, ClassName FROM Class";
             using SqlCommand cmd = new(query, con);
@@ -175,7 +174,7 @@ public class AddClassViewModel : ViewModel
     {
         try
         {
-            using SqlConnection con = new(_conn);
+            using SqlConnection con = new(AppState._conn);
             string query = @"SELECT S.SectionId, S.SectionName, S.ClassId, C.ClassName FROM Section S INNER JOIN Class C ON S.ClassId = C.ClassId";
             using SqlCommand cmd = new(query, con);
 
@@ -211,7 +210,7 @@ public class AddClassViewModel : ViewModel
 
         try
         {
-            using SqlConnection con = new(_conn);
+            using SqlConnection con = new(AppState._conn);
 
             string query = @"INSERT INTO Class (ClassName) VALUES (@Name); SELECT SCOPE_IDENTITY();";
 

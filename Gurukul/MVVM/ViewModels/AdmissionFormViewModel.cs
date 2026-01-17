@@ -6,6 +6,8 @@ namespace Gurukul.MVVM.ViewModels;
 
 public class AdmissionFormViewModel : Core.ViewModel
 {
+    // For Current Academic Year use this
+    // var year = AppState.ActiveAcademicYear.YearName;
     private INavigationService _navigation;
 
     public INavigationService Navigation 

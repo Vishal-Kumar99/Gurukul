@@ -27,6 +27,7 @@ namespace Gurukul
             services.AddSingleton<SettingViewModel>();
             services.AddSingleton<AdmissionFormViewModel>();
             services.AddSingleton<AddClassViewModel>();
+            services.AddSingleton<AcademicYearViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
@@ -36,6 +37,8 @@ namespace Gurukul
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            AppState.LoadActiveAcademicYear();
+
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
 

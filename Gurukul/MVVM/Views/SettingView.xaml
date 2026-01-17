@@ -5,15 +5,127 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gurukul.MVVM.Views"
              mc:Ignorable="d" 
-             Background="#252525"
+             Background="#F3F4F6"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock Text="Settings" 
-                       Foreground="White"
-                       FontSize="24" 
-                       FontWeight="Bold"/>
-            <Button Content="Home" Height="25" Command="{Binding NavigateToHomeView}"/>
-        </StackPanel>
-    </Grid>
+    <UserControl.Resources>
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#4F46E5"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4338CA"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3730A3"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Secondary Button -->
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+            <Setter Property="Background" Value="#E5E7EB"/>
+            <Setter Property="Foreground" Value="#111827"/>
+        </Style>
+
+        <!-- GroupBox Style -->
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#FAFAFA"/>
+        </Style>
+
+        <!-- Text Styling -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#111827"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Border Margin="30" Padding="25" Background="White" CornerRadius="16" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Settings"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#111827"
+                       Margin="0,0,0,20"/>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical" >
+                <GroupBox Header="Academic Settings">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Academic Year:" 
+                                       VerticalAlignment="Center" 
+                                       Foreground="#6B7280"
+                                       Width="140"/>
+                            <TextBlock Text="{Binding ActiveAcademicYear}" 
+                                       FontWeight="SemiBold" 
+                                       VerticalAlignment="Center" />
+                            <Button Content="Update" 
+                                    Width="90" 
+                                    Margin="20,0,0,0"
+                                    Style="{StaticResource PrimaryButtonStyle}"
+                                    Command="{Binding OpenAcademicYearCommand}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="User Preferences">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <TextBlock Text="Theme:" VerticalAlignment="Center" Foreground="#6B7280" Width="140"/>
+                            <ComboBox Width="160" Height="30">
+                                <ComboBoxItem Content="Light"/>
+                                <ComboBoxItem Content="Dark"/>
+                                <ComboBoxItem Content="System Default"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <TextBlock Text="Sidebar Behaviour:" VerticalAlignment="Center" Width="140" Foreground="#6B7280"/>
+                            <ComboBox Width="160" Height="30">
+                                <ComboBoxItem Content="Expanded"/>
+                                <ComboBoxItem Content="Collapsed"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="Notifications:" VerticalAlignment="Center" Width="140" Foreground="#6B7280"/>
+                            <CheckBox Content="Enable Notifications" IsChecked="True" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Save" Width="90" 
+                                    Style="{StaticResource PrimaryButtonStyle}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>

@@ -152,7 +152,7 @@ public class SidebarViewModel : Core.ViewModel
             //CreateItem("Roles", "\uE192"),
 
             CreateItem("Settings", "\uE713",
-                ("General", typeof(HomeViewModel)), ("About", typeof(HomeViewModel)))
+                ("General", typeof(SettingViewModel)), ("About", typeof(HomeViewModel)))
         };
 
         foreach (var item in Items)

@@ -1,28 +1,44 @@
 ﻿
 using Gurukul.Core;
+using Gurukul.MVVM.Views;
 using Gurukul.Services;
 
 namespace Gurukul.MVVM.ViewModels;
 
 public class SettingViewModel : Core.ViewModel
 {
-    private INavigationService _navigation;
+    private readonly AcademicYearViewModel _academicYearVM;
 
-    public INavigationService Navigation 
-    { 
-        get => _navigation; 
+    private string _activeAcademicYear;
+    public string ActiveAcademicYear
+    {
+        get => _activeAcademicYear;
         set
         {
-            _navigation = value;
+            _activeAcademicYear = value;
             OnPropertyChanged();
-        } 
+        }
     }
 
-    public RelayCommand NavigateToHomeView { get; set; }
+    public RelayCommand OpenAcademicYearCommand { get; }
 
-    public SettingViewModel(INavigationService navigation)
+    public SettingViewModel(AcademicYearViewModel academicYearViewModel)
     {
-        Navigation = navigation;
-        NavigateToHomeView = new RelayCommand(execute:obj => { Navigation.NavigateTo<HomeViewModel>(); }, canExecute:obj => true);
+        RefreshActiveYear();
+        OpenAcademicYearCommand = new RelayCommand(_ => OpenAcademicYearWindow());
+        _academicYearVM = academicYearViewModel;
+    }
+
+    private void RefreshActiveYear()
+    {
+        ActiveAcademicYear = AppState.CurrentAcademicYear?.YearName ?? "Not Set";
+    }
+
+    private void OpenAcademicYearWindow()
+    {
+        var win = new AcademicYearView();
+        win.DataContext = _academicYearVM;
+        win.ShowDialog();
+        RefreshActiveYear();
     }
 }
