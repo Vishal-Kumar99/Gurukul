@@ -12,9 +12,12 @@ namespace Gurukul.MVVM.ViewModels;
 
 public class AddClassViewModel : ViewModel
 {
-    public ObservableCollection<Class> ClassList { get; set; } = new();
-    public ObservableCollection<Section> SectionList { get; set; } = new();
+    public ObservableCollection<Class> ClassList => AppState.ClassStore.Classes;
+    public ObservableCollection<Section> SectionList => AppState.SectionStore.Sections;
     public ObservableCollection<string> UniqueSectionList { get; private set; } = new();
+
+    public ICollectionView SortedSectionView { get; }
+    public ListCollectionView SortedClassView { get; }
 
     private string _newClassName;
     public string NewClassName 
@@ -73,15 +76,29 @@ public class AddClassViewModel : ViewModel
         AddSectionCommand = new RelayCommand(async _ => await AddSectionAsync(), _ => !string.IsNullOrWhiteSpace(NewSectionName));
         DeleteSectionCommand = new RelayCommand(async _ => await DeleteSectionAsync(), _ => SelectedSection != null);
 
-        LoadClassListAsync();
-        LoadSectionListAsync();
+        SortedSectionView = CollectionViewSource.GetDefaultView(SectionList);
+        SortedClassView = (ListCollectionView)CollectionViewSource.GetDefaultView(ClassList);
+        SortedClassView.CustomSort = new Converters.SortComparer();
+
+        SortedSectionView.SortDescriptions.Add(new SortDescription(nameof(Section.ClassName), ListSortDirection.Ascending));
+        SortedSectionView.SortDescriptions.Add(new SortDescription(nameof(Section.SectionName), ListSortDirection.Ascending));
+
+        _ = LoadInitialData();
+    }
+
+    private async Task LoadInitialData()
+    {
+        await AppState.ClassStore.LoadAsync();
+        await AppState.SectionStore.LoadAsync();
+
+        UpdateUniqueSectionList();
     }
 
     private async Task DeleteSectionAsync()
     {
         if (SelectedSection == null) return;
 
-        var result = MessageBox.Show("Deleting this class will remove all related information. Continue?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var result = MessageBox.Show("Deleting this section will remove all related information. Continue?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (result != MessageBoxResult.Yes) return;
 
@@ -96,7 +113,7 @@ public class AddClassViewModel : ViewModel
             await con.OpenAsync();
             await cmd.ExecuteNonQueryAsync();
 
-            SectionList.Remove(SelectedSection);
+            AppState.SectionStore.RemoveSection(SelectedSection);
             SelectedSection = null;
 
             UpdateUniqueSectionList();
@@ -132,7 +149,13 @@ public class AddClassViewModel : ViewModel
             await con.OpenAsync();
             var id = Convert.ToInt32(await cmd.ExecuteScalarAsync());
 
-            SectionList.Add(new Section { SectionId = id, SectionName = NewSectionName, ClassId = SelectedClass.ClassId, ClassName = SelectedClass.ClassName });
+            AppState.SectionStore.AddSection(new Section 
+            { 
+                SectionId = id, 
+                SectionName = NewSectionName, 
+                ClassId = SelectedClass.ClassId, 
+                ClassName = SelectedClass.ClassName 
+            });
 
             UpdateUniqueSectionList();
             NewSectionName = string.Empty;
@@ -140,63 +163,6 @@ public class AddClassViewModel : ViewModel
         catch (Exception ex)
         {
             MessageBox.Show($"Error adding section: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private async Task LoadClassListAsync()
-    {
-        try
-        {
-            using SqlConnection con = new(AppState._conn);
-
-            string query = @"SELECT ClassId, ClassName FROM Class";
-            using SqlCommand cmd = new(query, con);
-
-            await con.OpenAsync();
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            while (await reader.ReadAsync())
-            {
-                ClassList.Add(new Class
-                {
-                    ClassId = reader.GetInt32(0),
-                    ClassName = reader.GetString(1)
-                });
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error loading classes: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    public async Task LoadSectionListAsync()
-    {
-        try
-        {
-            using SqlConnection con = new(AppState._conn);
-            string query = @"SELECT S.SectionId, S.SectionName, S.ClassId, C.ClassName FROM Section S INNER JOIN Class C ON S.ClassId = C.ClassId";
-            using SqlCommand cmd = new(query, con);
-
-            await con.OpenAsync();
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            while (await reader.ReadAsync())
-            {
-                SectionList.Add(new Section
-                {
-                    SectionId = reader.GetInt32(0),
-                    SectionName = reader.GetString(1),
-                    ClassId = reader.GetInt32(2),
-                    ClassName = reader.GetString(3),
-                });
-            }
-
-            UpdateUniqueSectionList();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error loading sections: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -220,7 +186,11 @@ public class AddClassViewModel : ViewModel
             await con.OpenAsync();
             var id = Convert.ToInt32(await cmd.ExecuteScalarAsync());
 
-            ClassList.Add(new Class { ClassId = id, ClassName = NewClassName });
+            AppState.ClassStore.AddClass(new Class 
+            { 
+                ClassId = id, 
+                ClassName = NewClassName 
+            });
 
             NewClassName = string.Empty;
         }
@@ -233,7 +203,7 @@ public class AddClassViewModel : ViewModel
     private void UpdateUniqueSectionList()
     {
         UniqueSectionList = new ObservableCollection<string>(
-            SectionList
+            AppState.SectionStore.Sections
             .Select(s => s.SectionName)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(s => s)

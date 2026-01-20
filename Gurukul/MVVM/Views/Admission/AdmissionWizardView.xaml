@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="Gurukul.MVVM.Views.Admission.AdmissionWizardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Gurukul.MVVM.Views.Admission"
+             xmlns:view="clr-namespace:Gurukul.MVVM.Views.Admission.Steps"
+             xmlns:viewmodel="clr-namespace:Gurukul.MVVM.ViewModels.Admission"
+             xmlns:convert="clr-namespace:Gurukul.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <convert:BoolToBrushConverter x:Key="BoolToBrushConverter" />
+        <convert:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Steps -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Buttons -->
+        </Grid.RowDefinitions>
+        
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding Steps}" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"  />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="12"
+                            Margin="10"
+                            CornerRadius="6"
+                            BorderThickness="2"
+                            BorderBrush="{Binding IsActive, Converter={StaticResource BoolToBrushConverter}}">
+                        <StackPanel Opacity="{Binding IsActive, Converter={StaticResource BoolToOpacityConverter}}">
+                            <TextBlock Text="{Binding Icon}"
+                           FontFamily="Segoe MDL2 Assets"
+                           FontSize="22"/>
+                            <TextBlock Text="{Binding Title}"
+                           FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentStep}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodel:StudentBasicVM}">
+                    <view:StudentBasicView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodel:ParentDetailsVM}">
+                    <view:ParentDetailsView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodel:AddressVM}">
+                    <view:AddressView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodel:AcademicDetailsVM}">
+                    <view:AcademicDetailsView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodel:HealthDetailsVM}">
+                    <view:HealthDetailsView />
+                </DataTemplate>
+
+                <!--<DataTemplate DataType="{x:Type viewmodel:IdCardPreviewVM}">
+                    <view:IdCardPreviewView />
+                </DataTemplate>-->
+
+                <DataTemplate DataType="{x:Type viewmodel:StudentPhotoVM}">
+                    <view:StudentPhotoView />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodel:FinalSubmitVM}">
+                    <view:FinalSubmitView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            
+            <Button Content="Cancel"
+            Width="100"
+            Margin="0,0,10,0"
+            Command="{Binding CancelCommand}" />
+            
+            <Button Content="Back"
+            Command="{Binding BackCommand}"/>
+
+            <Button Margin="10,0,0,0"
+            Command="{Binding NextCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Content" Value="Save and Next"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFinalStep}" Value="True">
+                                <Setter Property="Content" Value="Finish"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Gurukul"
              xmlns:viewModel="clr-namespace:Gurukul.MVVM.ViewModels"
-             xmlns:view="clr-namespace:Gurukul.MVVM.Views">
+             xmlns:view="clr-namespace:Gurukul.MVVM.Views"
+             xmlns:viewModelAdmission="clr-namespace:Gurukul.MVVM.ViewModels.Admission"
+             xmlns:viewAdmission="clr-namespace:Gurukul.MVVM.Views.Admission">
     <Application.Resources>
         <DataTemplate DataType="{x:Type TypeName=viewModel:HomeViewModel}">
             <view:HomeView />
@@ -13,8 +15,8 @@
             <view:SettingView />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type TypeName=viewModel:AdmissionFormViewModel}">
-            <view:AdmissionFormView />
+        <DataTemplate DataType="{x:Type TypeName=viewModelAdmission:AdmissionWizardViewModel}">
+            <viewAdmission:AdmissionWizardView />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type TypeName=viewModel:AddClassViewModel}">

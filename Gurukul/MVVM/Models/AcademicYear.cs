@@ -5,6 +5,8 @@ public class AcademicYear : Core.ViewModel
 {
     public int AcademicYearId { get; set; }
     public string YearName { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
 
     private bool _isActive;
     public bool IsActive

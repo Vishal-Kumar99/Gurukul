@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gurukul.MVVM.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Background="#F3F4F6"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -107,10 +108,10 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                            <TextBlock Text="Sidebar Behaviour:" VerticalAlignment="Center" Width="140" Foreground="#6B7280"/>
-                            <ComboBox Width="160" Height="30">
-                                <ComboBoxItem Content="Expanded"/>
-                                <ComboBoxItem Content="Collapsed"/>
+                            <TextBlock Text="Sidebar Behavior:" VerticalAlignment="Center" Width="140" Foreground="#6B7280"/>
+                            <ComboBox Width="160" Height="30" SelectedItem="{Binding SelectedSidebarBehavior}">
+                                <sys:String>Expanded</sys:String>
+                                <sys:String>Collapsed</sys:String>
                             </ComboBox>
                         </StackPanel>
 
@@ -121,6 +122,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <Button Content="Save" Width="90" 
+                                    Command="{Binding SaveSettingsCommand}"
                                     Style="{StaticResource PrimaryButtonStyle}"/>
                         </StackPanel>
                     </StackPanel>

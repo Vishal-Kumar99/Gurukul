@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Gurukul.MVVM.Views
+namespace Gurukul.MVVM.Views.Admission.Steps
 {
     /// <summary>
-    /// Interaction logic for AdmissionFormView.xaml
+    /// Interaction logic for AddressView.xaml
     /// </summary>
-    public partial class AdmissionFormView : UserControl
+    public partial class AddressView : UserControl
     {
-        public AdmissionFormView()
+        public AddressView()
         {
             InitializeComponent();
         }

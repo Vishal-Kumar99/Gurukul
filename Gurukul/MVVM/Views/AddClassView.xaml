@@ -5,30 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gurukul.MVVM.Views"
              mc:Ignorable="d" 
-             Background="LightGray"
+             Background="#F3F4F6"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+
         <Style TargetType="GroupBox">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#FAFAFA"/>
         </Style>
 
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#454545"/>
-            <!-- Green -->
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="10 5"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#4F46E5"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="34"/>
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border"
+                                CornerRadius="6"
                         Background="{TemplateBinding Background}"
                         Padding="{TemplateBinding Padding}">
 
@@ -38,17 +40,14 @@
 
                         <ControlTemplate.Triggers>
 
-                            <!-- Disabled -->
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="#FFCFCFCF"/>
-                                <Setter Property="Foreground" Value="#FF8A8A8A"/>
-                                <Setter Property="Cursor" Value="No"/>
-                                <Setter Property="Opacity" Value="0.6"/>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4338CA"/>
                             </Trigger>
-
-                            <!-- Pressed (subtle) -->
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                                <Setter TargetName="border" Property="Background" Value="#3730A3"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.5"/>
                             </Trigger>
 
                         </ControlTemplate.Triggers>
@@ -58,97 +57,30 @@
         </Style>
 
 
-        <Style x:Key="DangerButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="IndianRed"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Padding" Value="10 5"/>
-            <Setter Property="Margin" Value="10 0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        Padding="{TemplateBinding Padding}">
-
-                            <ContentPresenter HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"/>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-
-                            <!-- Disabled -->
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="border" Property="Background" Value="#FFCFCFCF"/>
-                                <Setter Property="Foreground" Value="#FF8A8A8A"/>
-                                <Setter Property="Cursor" Value="No"/>
-                                <Setter Property="Opacity" Value="0.6"/>
-                            </Trigger>
-
-                            <!-- Pressed (optional subtle effect) -->
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Opacity" Value="0.8"/>
-                            </Trigger>
-
-                            <!-- Focused (no glow, no border) -->
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="border" Property="BorderThickness" Value="0"/>
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+            <Setter Property="Background" Value="#DC2626"/>
         </Style>
 
-        <Style x:Key="DangerBorderStyle" TargetType="Border">
-            <Setter Property="BorderBrush" Value="IndianRed"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="4"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Opacity" Value="1"/>
-
-            <Style.Triggers>
-                <!-- Disabled look -->
-                <DataTrigger Binding="{Binding IsEnabled, ElementName=DeleteBtn}" Value="False">
-                    <Setter Property="BorderBrush" Value="#FFB0B0B0"/>
-                    <Setter Property="Opacity" Value="0.6"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="DangerTextStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="IndianRed"/>
+        <Style x:Key="MutedText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#6B7280"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="Opacity" Value="1"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-
-            <Style.Triggers>
-                <!-- Disabled look -->
-                <DataTrigger Binding="{Binding IsEnabled, ElementName=DeleteBtn}" Value="False">
-                    <Setter Property="Foreground" Value="#FF9E9E9E"/>
-                    <Setter Property="Opacity" Value="0.6"/>
-                </DataTrigger>
-            </Style.Triggers>
         </Style>
-
 
     </UserControl.Resources>
-    
-    <Border Margin="20" Padding="20" Background="White" CornerRadius="10" >
+
+    <Border Margin="30"
+            Padding="25"
+            Background="White"
+            CornerRadius="16" >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Class Management" 
-                       FontSize="24" 
-                       FontWeight="Bold" 
+            <TextBlock Text="Class Management"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#111827"
                        Margin="0,0,0,20" />
 
             <Grid Grid.Row="1">
@@ -158,14 +90,14 @@
                 </Grid.ColumnDefinitions>
                 
                 <GroupBox Header="Existing Classes" Margin="0 0 20 0">
-                    <ListView ItemsSource="{Binding SectionList}" 
+                    <ListView ItemsSource="{Binding SortedSectionView}" 
                             SelectedItem="{Binding SelectedSection}" 
-                            MinHeight="300">
+                            MinHeight="300" BorderThickness="0">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Class Name" 
                                             DisplayMemberBinding="{Binding ClassName}" 
-                                            Width="120"/>
+                                            Width="150"/>
                                 <GridViewColumn Header="Section"
                                             DisplayMemberBinding="{Binding SectionName}" 
                                             Width="120"/>
@@ -175,24 +107,22 @@
                 </GroupBox>
 
                 <StackPanel Grid.Column="1">
-                    <GroupBox Header="Add New Class" 
-                              Margin="0,0,0,20">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                    <GroupBox Header="Add New Class">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
                             
                             <TextBlock Text="Class Name:" 
-                                       Width="90" 
-                                       Margin="0 0 15 0"
-                                       VerticalAlignment="Center"/>
+                                       Width="100" 
+                                       Style="{StaticResource MutedText}"/>
                             
                             <ComboBox IsEditable="True" 
                                       IsTextSearchEnabled="True" 
-                                      Width="150" 
+                                      Width="160" 
                                       Text="{Binding NewClassName, UpdateSourceTrigger=PropertyChanged}" 
-                                      ItemsSource="{Binding ClassList}" 
+                                      ItemsSource="{Binding SortedClassView}" 
                                       DisplayMemberPath="ClassName"/>
                             
                             <Button Content="Add" 
-                                    Width="80" 
+                                    Width="90" 
                                     HorizontalAlignment="Center" 
                                     Margin="20,0,0,0" 
                                     Style="{StaticResource PrimaryButtonStyle}"
@@ -200,20 +130,20 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Header="Add New Section" Margin="0 0 0 20">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                    <GroupBox Header="Add New Section">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             
-                            <TextBlock Text="Class:" Width="60" VerticalAlignment="Center"/>
+                            <TextBlock Text="Class:" Width="60" Style="{StaticResource MutedText}"/>
                             
-                            <ComboBox Width="130"
+                            <ComboBox Width="140"
                                       IsEditable="True"
                                       IsTextSearchEnabled="True"
-                                      ItemsSource="{Binding ClassList}"
+                                      ItemsSource="{Binding SortedClassView}"
                                       SelectedItem="{Binding SelectedClass}"
                                       SelectedValuePath="ClassId"
                                       DisplayMemberPath="ClassName"/>
 
-                            <TextBlock Text="Section:" Width="70" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Section:" Width="70" Margin="15 0 0 0" Style="{StaticResource MutedText}"/>
 
                             <ComboBox IsEditable="True" 
                                       IsTextSearchEnabled="True" 
@@ -222,25 +152,36 @@
                                       ItemsSource="{Binding UniqueSectionList}" />
                             
                             <Button Content="Add" 
-                                    Width="80" 
-                                    HorizontalAlignment="Center" 
+                                    Width="90" 
                                     Margin="20,0,0,0" 
                                     Style="{StaticResource PrimaryButtonStyle}"
                                     Command="{Binding AddSectionCommand}"/>
                         </StackPanel>
                     </GroupBox>
 
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
-                        <Button Content="Delete Selected" 
-                                x:Name="DeleteBtn"
-                                Command="{Binding DeleteSectionCommand}"
-                                Style="{StaticResource DangerButtonStyle}"/>
+                    <Border Background="#FEF2F2"
+                            BorderBrush="#FCA5A5"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="Danger Zone"
+                                       FontWeight="Bold"
+                                       Foreground="#991B1B"
+                                       Margin="0,0,0,8"/>
 
-                        <Border Style="{StaticResource DangerBorderStyle}">
-                            <TextBlock Text="⚠ CAUTION - This will delete all related data"
-                                       Style="{StaticResource DangerTextStyle}" />
-                        </Border>
-                    </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Delete Selected" Width="140"
+                                    Command="{Binding DeleteSectionCommand}"
+                                    Style="{StaticResource DangerButtonStyle}"/>
+
+                                <TextBlock Text="⚠ This will delete all related data"
+                                           Margin="12,0,0,0"
+                                           VerticalAlignment="Center"
+                                           Foreground="#991B1B"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Grid>
         </Grid>

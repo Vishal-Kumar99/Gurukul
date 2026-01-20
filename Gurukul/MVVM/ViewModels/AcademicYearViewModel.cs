@@ -110,6 +110,11 @@ public class AcademicYearViewModel : Core.ViewModel
 
             string deactivateAll = @"Update AcademicYear Set IsActive = 0";
             string activateOne = @"Update AcademicYear Set IsActive = 1 Where AcademicYearId = @Id";
+            string updateEndDate = @"Update AcademicYear Set EndDate = @date Where IsActive = 1";
+
+            using SqlCommand updateEndDateCmd = new(updateEndDate, con);
+            updateEndDateCmd.Parameters.AddWithValue("@date", DateTime.Now);
+            updateEndDateCmd.ExecuteNonQuery();
 
             using SqlCommand deactivateCmd = new(deactivateAll, con);
             deactivateCmd.ExecuteNonQuery();
@@ -131,7 +136,6 @@ public class AcademicYearViewModel : Core.ViewModel
         int start = SelectedStartYear.Value.Year;
         int end = start + 1;
         string name = $"{start} - {end % 100:D2}";
-        DateTime date = DateTime.Now;
 
         if (SessionList.Any(s => s.YearName == name))
         {
@@ -142,11 +146,11 @@ public class AcademicYearViewModel : Core.ViewModel
         try
         {
             using SqlConnection con = new(AppState._conn);
-            string query = @"Insert Into AcademicYear (YearName, IsActive, CreatedOn) Output Inserted.AcademicYearId Values (@name, 0, @date)";
+            string query = @"Insert Into AcademicYear (YearName, StartDate,IsActive) Output Inserted.AcademicYearId Values (@name, @startdate, 0)";
 
             using SqlCommand cmd = new(query, con);
             cmd.Parameters.AddWithValue("@name", name);
-            cmd.Parameters.AddWithValue("@date", date);
+            cmd.Parameters.AddWithValue("@startdate", SelectedStartYear);
             con.Open();
 
             int id = (int)cmd.ExecuteScalar();
@@ -155,8 +159,7 @@ public class AcademicYearViewModel : Core.ViewModel
             {
                 AcademicYearId = id,
                 YearName = name,
-                IsActive = false,
-                CreatedAt = DateTime.Now
+                IsActive = false
             };
 
             year.PropertyChanged += Year_PropertyChanged;

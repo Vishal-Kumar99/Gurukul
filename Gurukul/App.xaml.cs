@@ -1,9 +1,11 @@
 ﻿using Gurukul.Core;
 using Gurukul.MVVM.ViewModels;
+using Gurukul.MVVM.ViewModels.Admission;
 using Gurukul.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Gurukul
@@ -25,9 +27,9 @@ namespace Gurukul
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<HomeViewModel>();
             services.AddSingleton<SettingViewModel>();
-            services.AddSingleton<AdmissionFormViewModel>();
             services.AddSingleton<AddClassViewModel>();
             services.AddSingleton<AcademicYearViewModel>();
+            services.AddTransient<AdmissionWizardViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
@@ -35,14 +37,15 @@ namespace Gurukul
             _serviceProvider = services.BuildServiceProvider();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
+
+            AppState.Settings = SettingsService.LoadSettings();
             AppState.LoadActiveAcademicYear();
 
             var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
-
-            base.OnStartup(e);
         }
     }
 
